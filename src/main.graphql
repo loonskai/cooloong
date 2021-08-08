@@ -1,0 +1,29 @@
+type Country {
+  id: Int!
+  name: String!
+}
+
+type TeaType {
+  id: Int!
+  name: String!
+}
+
+type Fabric {
+  id: Int!
+  name: String!
+  country: Country!
+}
+
+type Tea {
+  id: Int!
+  name: String!
+  type: TeaType!
+  fabric: Fabric
+}
+
+type Query {
+  countries: [Country]!
+  fabrics: [Fabric]!
+  teaItems: [Tea]!
+  tea(id: Int): Tea
+}

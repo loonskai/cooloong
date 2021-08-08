@@ -37,4 +37,8 @@ export interface IQuery {
     tea(id?: Nullable<number>): Nullable<Tea> | Promise<Nullable<Tea>>;
 }
 
+export interface IMutation {
+    createTea(name?: Nullable<string>): Nullable<Tea> | Promise<Nullable<Tea>>;
+}
+
 type Nullable<T> = T | null;

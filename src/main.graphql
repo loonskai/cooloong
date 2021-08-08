@@ -22,8 +22,12 @@ type Tea {
 }
 
 type Query {
-  countries: [Country]!
-  fabrics: [Fabric]!
-  teaItems: [Tea]!
+  countries: [Country!]!
+  fabrics: [Fabric!]!
+  teaItems: [Tea!]!
   tea(id: Int): Tea
+}
+
+type Mutation {
+  createTea(name: String): Tea
 }

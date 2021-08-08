@@ -1,22 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Tea } from '../graphql';
-
-const MOCKED_TEA_ITEMS = [
-  {
-    id: 1,
-    name: 'Old Lincan',
-    type: {
-      id: 1,
-      name: 'Lincan Fabric',
-    },
-  },
-];
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Tea } from './entities/tea.entity';
 
 @Injectable()
 export class TeasService {
-  private teaItems = MOCKED_TEA_ITEMS;
+  constructor(
+    @InjectRepository(Tea) private readonly teaRepository: Repository<Tea>,
+  ) {}
 
-  findOneById(id: number): Tea {
-    return this.teaItems.find(({ id: itemId }) => itemId === id);
+  create(teaDto: { name: string }) {
+    const tea = this.teaRepository.create(teaDto);
+    return this.teaRepository.save(tea);
+  }
+
+  findAll() {
+    return this.teaRepository.find();
+  }
+
+  async findOneById(id: number) {
+    return await this.teaRepository.findOne(id);
   }
 }

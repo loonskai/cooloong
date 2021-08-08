@@ -1,0 +1,15 @@
+type User {
+  id: Int!
+  email: String! # TODO: Add a separate Email scalar type
+  login: String!
+  name: String
+}
+
+type Query {
+  users: [User!]!
+  user(id: Int!): User
+}
+
+# type Mutation {
+#   createUser
+# }

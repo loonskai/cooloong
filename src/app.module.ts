@@ -3,9 +3,10 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TeasModule } from './teas/teas.module';
+import { TeaModule } from './tea/tea.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -25,9 +26,10 @@ import { ConfigModule } from '@nestjs/config';
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: process.env.NODE_ENV === 'development',
     }),
-    TeasModule,
+    TeaModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

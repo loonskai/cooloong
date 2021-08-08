@@ -14,20 +14,7 @@ type Fabric {
   country: Country!
 }
 
-type Tea {
-  id: Int!
-  name: String!
-  type: TeaType!
-  fabric: Fabric
-}
-
 type Query {
   countries: [Country!]!
   fabrics: [Fabric!]!
-  teaItems: [Tea!]!
-  tea(id: Int): Tea
-}
-
-type Mutation {
-  createTea(name: String): Tea
 }

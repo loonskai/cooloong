@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { TeaEntity } from './entities/tea.entity';
-
+import { CreateTeaDto } from './dto/create-tea.dto';
 @Injectable()
 export class TeaService {
   constructor(
@@ -10,7 +10,7 @@ export class TeaService {
     private readonly teaRepository: Repository<TeaEntity>,
   ) {}
 
-  create(teaDto: { name: string }) {
+  create(teaDto: CreateTeaDto) {
     const tea = this.teaRepository.create(teaDto);
     return this.teaRepository.save(tea);
   }

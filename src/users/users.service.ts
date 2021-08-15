@@ -19,8 +19,30 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  update(updateUserInput: UpdateUserInput) {
-    void 'hi';
+  async update({
+    id,
+    email,
+    login,
+    name,
+    password,
+    confirmPassword,
+  }: UpdateUserInput) {
+    const user = await this.usersRepository.findOneOrFail(id);
+
+    if (email) {
+      user.email = email;
+    }
+    if (login) {
+      user.login = login;
+    }
+    if (name) {
+      user.name = name;
+    }
+    if (password) {
+      user.password = password;
+    }
+
+    return this.usersRepository.save(user);
   }
 
   findAll() {

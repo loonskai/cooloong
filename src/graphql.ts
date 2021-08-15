@@ -21,7 +21,18 @@ export interface CreateTeaInput {
 export interface CreateUserInput {
     login: string;
     email: string;
-    password: string;
+    password?: Nullable<string>;
+    confirmPassword?: Nullable<string>;
+    name?: Nullable<string>;
+}
+
+export interface UpdateUserInput {
+    id: number;
+    email?: Nullable<string>;
+    login?: Nullable<string>;
+    password?: Nullable<string>;
+    confirmPassword?: Nullable<string>;
+    name?: Nullable<string>;
 }
 
 export interface Brew {
@@ -44,6 +55,7 @@ export interface IMutation {
     createBrew(createBrewInput: CreateBrewInput): Nullable<Brew> | Promise<Nullable<Brew>>;
     createTea(createTeaInput: CreateTeaInput): Nullable<Tea> | Promise<Nullable<Tea>>;
     createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+    updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export interface Tea {

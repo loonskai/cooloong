@@ -7,6 +7,7 @@ import {
   Parent,
 } from '@nestjs/graphql';
 import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 import { UserEntity } from './user.entity';
 import { UsersService } from './users.service';
 
@@ -32,5 +33,10 @@ export class UsersResolver {
   @Mutation(() => UserEntity)
   createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
     return this.usersService.create(createUserInput);
+  }
+
+  @Mutation(() => UserEntity)
+  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    return this.usersService.update(updateUserInput);
   }
 }

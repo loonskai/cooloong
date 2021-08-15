@@ -1,22 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserEntity } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UserEntity } from './user.entity';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
+import { BrewsService } from 'src/brews/brews.service';
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(UserEntity)
     private readonly usersRepository: Repository<UserEntity>,
+    private brewsService: BrewsService,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
-    const user = this.usersRepository.create(createUserDto);
+  create(createUserInput: CreateUserInput) {
+    const user = this.usersRepository.create(createUserInput);
     return this.usersRepository.save(user);
   }
 
-  update(updateUserDto: UpdateUserDto) {
+  update(updateUserInput: UpdateUserInput) {
     void 'hi';
   }
 
@@ -25,6 +27,11 @@ export class UsersService {
   }
 
   async findOneById(id: number) {
-    return await this.usersRepository.findOne(id);
+    return await this.usersRepository.findOneOrFail(id);
+  }
+
+  async getBrews(userId: number) {
+    const brews = await this.brewsService.findAll();
+    return brews.filter((brew) => brew.userId === userId);
   }
 }

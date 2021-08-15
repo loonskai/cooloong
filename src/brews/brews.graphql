@@ -1,0 +1,21 @@
+type Brew {
+  id: Int!
+  date: String! # TODO: Add Date scalar type
+  user: User!
+  tea: Tea!
+}
+
+type Query {
+  brews: [Brew!]!
+  brew(id: Int!): Brew
+}
+
+input CreateBrewInput {
+  userId: Int!
+  teaId: Int!
+  date: String!
+}
+
+type Mutation {
+  createBrew(createBrewInput: CreateBrewInput!): Brew
+}

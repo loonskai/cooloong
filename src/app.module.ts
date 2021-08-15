@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TeaModule } from './tea/tea.module';
+import { TeasModule } from './teas/teas.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UsersModule } from './users/users.module';
+import { BrewsModule } from './brews/brews.module';
 
 @Module({
   imports: [
@@ -20,16 +21,18 @@ import { UsersModule } from './users/users.module';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
+      entities: ['dist/**/*.entity{.ts,.js}'],
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
       username: process.env.POSTGRES_USER,
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       autoLoadEntities: true,
-      synchronize: process.env.NODE_ENV === 'development',
+      synchronize: true,
     }),
-    TeaModule,
+    TeasModule,
     UsersModule,
+    BrewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

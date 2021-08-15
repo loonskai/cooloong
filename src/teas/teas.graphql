@@ -1,0 +1,20 @@
+type Tea {
+  id: Int!
+  name: String!
+  type: String
+  brews: [Brew!]!
+}
+
+type Query {
+  teaItems: [Tea!]!
+  tea(id: Int!): Tea
+}
+
+input CreateTeaInput {
+  name: String!
+  type: String
+}
+
+type Mutation {
+  createTea(createTeaInput: CreateTeaInput!): Tea
+}

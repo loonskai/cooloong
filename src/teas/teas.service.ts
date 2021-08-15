@@ -1,18 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { TeaEntity } from './entities/tea.entity';
-import { CreateTeaDto } from './dto/create-tea.dto';
+import { TeaEntity } from './tea.entity';
+import { CreateTeaInput } from './dto/create-tea.input';
+
 @Injectable()
-export class TeaService {
+export class TeasService {
   constructor(
     @InjectRepository(TeaEntity)
     private readonly teaRepository: Repository<TeaEntity>,
   ) {}
 
-  create(teaDto: CreateTeaDto) {
-    const tea = this.teaRepository.create(teaDto);
-    return this.teaRepository.save(tea);
+  create(createTeaInput: CreateTeaInput) {
+    const newTea = this.teaRepository.create(createTeaInput);
+    return this.teaRepository.save(newTea);
   }
 
   findAll() {
@@ -20,6 +21,6 @@ export class TeaService {
   }
 
   async findOneById(id: number) {
-    return await this.teaRepository.findOne(id);
+    return await this.teaRepository.findOneOrFail(id);
   }
 }

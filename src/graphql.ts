@@ -7,40 +7,50 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export interface Country {
-    id: number;
-    name: string;
+export interface CreateBrewInput {
+    userId: number;
+    teaId: number;
+    date: string;
 }
 
-export interface TeaType {
-    id: number;
+export interface CreateTeaInput {
     name: string;
+    type?: Nullable<string>;
 }
 
-export interface Fabric {
+export interface CreateUserInput {
+    login: string;
+    email: string;
+    password: string;
+}
+
+export interface Brew {
     id: number;
-    name: string;
-    country: Country;
+    date: string;
+    user: User;
+    tea: Tea;
 }
 
 export interface IQuery {
-    countries(): Country[] | Promise<Country[]>;
-    fabrics(): Fabric[] | Promise<Fabric[]>;
+    brews(): Brew[] | Promise<Brew[]>;
+    brew(id: number): Nullable<Brew> | Promise<Nullable<Brew>>;
     teaItems(): Tea[] | Promise<Tea[]>;
     tea(id: number): Nullable<Tea> | Promise<Nullable<Tea>>;
     users(): User[] | Promise<User[]>;
     user(id: number): Nullable<User> | Promise<Nullable<User>>;
 }
 
+export interface IMutation {
+    createBrew(createBrewInput: CreateBrewInput): Nullable<Brew> | Promise<Nullable<Brew>>;
+    createTea(createTeaInput: CreateTeaInput): Nullable<Tea> | Promise<Nullable<Tea>>;
+    createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+}
+
 export interface Tea {
     id: number;
     name: string;
-    type: TeaType;
-    fabric?: Nullable<Fabric>;
-}
-
-export interface IMutation {
-    createTea(name?: Nullable<string>): Nullable<Tea> | Promise<Nullable<Tea>>;
+    type?: Nullable<string>;
+    brews: Brew[];
 }
 
 export interface User {
@@ -48,6 +58,7 @@ export interface User {
     email: string;
     login: string;
     name?: Nullable<string>;
+    brews: Brew[];
 }
 
 type Nullable<T> = T | null;

@@ -13,6 +13,6 @@ import { TeasModule } from 'src/teas/teas.module';
     TeasModule,
   ],
   providers: [BrewsService, BrewsResolver],
-  // exports: [BrewsService],
+  exports: [BrewsService],
 })
 export class BrewsModule {}

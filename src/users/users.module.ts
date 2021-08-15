@@ -11,6 +11,6 @@ import { UsersService } from './users.service';
     forwardRef(() => BrewsModule),
   ],
   providers: [UsersService, UsersResolver],
-  // exports: [UsersService],
+  exports: [UsersService],
 })
 export class UsersModule {}

@@ -5,6 +5,8 @@ import { UserEntity } from './user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { BrewsService } from 'src/brews/brews.service';
+import { DeleteUserInput } from './dto/delete-user.input';
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -43,6 +45,11 @@ export class UsersService {
     }
 
     return this.usersRepository.save(user);
+  }
+
+  async delete({ id }: DeleteUserInput) {
+    await this.usersRepository.delete(id);
+    return { id };
   }
 
   findAll() {

@@ -6,6 +6,10 @@ type User {
   brews: [Brew!]!
 }
 
+type DeletedUser {
+  id: Int!
+}
+
 type Query {
   users: [User!]!
   user(id: Int!): User
@@ -28,7 +32,12 @@ input UpdateUserInput {
   name: String
 }
 
+input DeleteUserInput {
+  id: Int!
+}
+
 type Mutation {
   createUser(createUserInput: CreateUserInput): User
   updateUser(updateUserInput: UpdateUserInput): User
+  deleteUser(deleteUserInput: DeleteUserInput): DeletedUser
 }

@@ -35,6 +35,10 @@ export interface UpdateUserInput {
     name?: Nullable<string>;
 }
 
+export interface DeleteUserInput {
+    id: number;
+}
+
 export interface Brew {
     id: number;
     date: string;
@@ -56,6 +60,7 @@ export interface IMutation {
     createTea(createTeaInput: CreateTeaInput): Nullable<Tea> | Promise<Nullable<Tea>>;
     createUser(createUserInput?: Nullable<CreateUserInput>): Nullable<User> | Promise<Nullable<User>>;
     updateUser(updateUserInput?: Nullable<UpdateUserInput>): Nullable<User> | Promise<Nullable<User>>;
+    deleteUser(deleteUserInput?: Nullable<DeleteUserInput>): Nullable<DeletedUser> | Promise<Nullable<DeletedUser>>;
 }
 
 export interface Tea {
@@ -71,6 +76,10 @@ export interface User {
     login: string;
     name?: Nullable<string>;
     brews: Brew[];
+}
+
+export interface DeletedUser {
+    id: number;
 }
 
 type Nullable<T> = T | null;
